@@ -14,14 +14,20 @@ struct DetailView: View
     
     var body: some View
     {
+        
         Text(country.name + " -> " + country.population)
+        
     }
 }
 
 struct Detailview_Previews: PreviewProvider
 {
+    
     static var previews: some View
     {
+        
         DetailView(country: CountryModel(id: UUID(), name: "asdf", population: "too many"))
+        
     }
+    
 }
