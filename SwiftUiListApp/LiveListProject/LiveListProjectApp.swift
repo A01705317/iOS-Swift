@@ -10,15 +10,11 @@ import SwiftUI
 @main
 struct LiveListProjectApp: App
 {
-    
     var body: some Scene
     {
-        
         WindowGroup
         {
             ContentView()
         }
-        
     }
-    
 }

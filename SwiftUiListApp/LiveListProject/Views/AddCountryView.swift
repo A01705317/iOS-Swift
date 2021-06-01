@@ -9,13 +9,12 @@ import SwiftUI
 
 struct AddCountryView: View
 {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    
-    @EnvironmentObject var countryController: Countrycontroller
+    @ObservedObject var countryController: Countrycontroller
     
     @State var countryName: String = ""
     @State var population: String = ""
-    
     
     var body: some View
     {
@@ -29,7 +28,7 @@ struct AddCountryView: View
             HStack
             {
                 Image(systemName: "pencil.circle")
-                .foregroundColor(.gray)
+                    .foregroundColor(.gray)
                 TextField("Country", text: $countryName)
             }
             .padding()
@@ -38,7 +37,7 @@ struct AddCountryView: View
             HStack
             {
                 Image(systemName: "person.3")
-                .foregroundColor(.gray)
+                    .foregroundColor(.gray)
                 TextField("Population", text: $population)
             }
             .padding()
@@ -46,20 +45,25 @@ struct AddCountryView: View
             
             HStack
             {
-                Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/)
-                {
-                    Text("Cancel")
-                }
                 
+                //MARK: CANCEL BUTTON
+                Button("Cancel")
+                {
+                    presentationMode.wrappedValue.dismiss()
+                }
                 .padding(.all)
                 .padding(.horizontal)
                 .foregroundColor(.white)
                 .background(Color.blue)
                 .cornerRadius(7.0)
                 
+                
+                //MARK: Submit BUTTON
                 Button(action:
                 {
                     countryController.addCountry(newCountry: CountryModel(id: UUID(), name: countryName, population: population))
+                    
+                    presentationMode.wrappedValue.dismiss()
                 })
                 {
                     Text("Add Country")
@@ -68,13 +72,13 @@ struct AddCountryView: View
                 .foregroundColor(.white)
                 .background(Color.blue)
                 .cornerRadius(7.0)
-                
             }
             .padding(.top, 30)
 
-        }
+        }// VStack
         .padding(.horizontal, 10)
         .navigationBarTitle("Add a New Country")
+        .navigationBarBackButtonHidden(true)
         
     }
 }
@@ -83,7 +87,6 @@ struct AddCountryView_Previews: PreviewProvider
 {
     static var previews: some View
     {
-        AddCountryView()
+        AddCountryView(countryController: Countrycontroller())
     }
 }
-
